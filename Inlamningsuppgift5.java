@@ -6,7 +6,8 @@ public class Inlamningsuppgift5
    
    public static void main(String[] args)
    {
-      int exitProg = 1;
+      Integer radius, height, nominator, denominator;
+      int braktal [] = new int [3];
 
       System.out.printf("---------------------------------\n");
       System.out.printf("# Test av area och volymmetoderna\n");
@@ -14,43 +15,39 @@ public class Inlamningsuppgift5
       
       do
       {
-      int radius;
-      int height;      
+         radius = getInputInt();
+         height = getInputInt();
 
-      radius = getInputInt();
-      height = getInputInt();
-
-
-      System.out.printf("\n%s%d\t", "r: ", radius);
-      System.out.printf("%s%d\n", "h: ", height);
-      System.out.printf("%s%13.2f\n", "Basytans area:", area(radius));
-      System.out.printf("%s%10.2f\n", "Mantelytans area:", area(radius, height));
-      System.out.printf("%s%21.2f\n", "Volym:", volume(radius, height));
-      exitProg = in.nextInt();
-      }while( exitProg == 1);
-      
+         if(radius != null && height != null)
+         {
+            System.out.printf("\n%s%d\t", "r: ", radius);
+            System.out.printf("%s%d\n", "h: ", height);
+            System.out.printf("%s%13.2f\n", "Basytans area:", area(radius));
+            System.out.printf("%s%10.2f\n", "Mantelytans area:", area(radius, height));
+            System.out.printf("%s%21.2f\n", "Volym:", volume(radius, height));
+         }
+      }while(radius != null || height != null);
       
       System.out.printf("---------------------------------\n");
       System.out.printf("# Test av bråktalsmetoderna\n");
       System.out.printf("---------------------------------\n");
       
-      int nominator;
-      int denominator;
-      int braktal [] = new int [3];
+      do
+      {
+         nominator = getInputInt();
+         denominator = getInputInt();
+         
+         braktal = fraction(nominator, denominator);
+         
+         System.out.printf("%d%s%d%s\t", nominator, "/", denominator, " = ");
+         printFraction(braktal);
+      }while(nominator != null || denominator != null);
       
-      nominator = in.nextInt();
-      denominator = in.nextInt();
-      in.nextLine();
-      
-      braktal = fraction(nominator, denominator);
-      
-      System.out.printf("%d%s%d%s\t", nominator, "/", denominator, " = ");
-      printFraction(braktal);
-
+      in.close ();
       
    }
    
-   public static int getInputInt() // Metod för inmatningshantering
+   public static Integer getInputInt() // Metod för inmatningshantering
    {
       int number = Integer.MAX_VALUE;
       while (number == Integer.MAX_VALUE)
@@ -64,9 +61,10 @@ public class Inlamningsuppgift5
             number = in.nextInt();
          }
          
-         
-       
-
+         else if(in.next().equals("q")) 
+         {
+            return null;
+         }
       }
       return number;
    }
